@@ -1,0 +1,127 @@
+🎨 Nouvelle charte graphique
+Couleur principale : Marron
+Exemple : #6B4226 (marron chocolat élégant)
+
+Couleur secondaire : Blanc
+→ Pour les fonds, les textes clairs, et les contrastes
+
+🔧 Ce qu’il te reste à améliorer
+1. 🅰️ Police moderne
+Utilise une police comme Poppins pour un look propre et contemporain.
+
+Dans le <head> :
+
+html
+Copier
+Modifier
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+Dans ton CSS :
+
+css
+Copier
+Modifier
+body {
+  font-family: 'Poppins', sans-serif;
+}
+2. 🎨 Palette de couleurs
+Voici un exemple de CSS basé sur le marron et blanc :
+
+css
+Copier
+Modifier
+body {
+  background-color: #ffffff; /* secondaire */
+  color: #3a2b20; /* texte foncé */
+}
+
+h1, h2, h3 {
+  color: #6B4226; /* marron principal */
+}
+
+a {
+  color: #6B4226;
+  text-decoration: none;
+}
+a:hover {
+  color: #8B5E3C;
+}
+3. 📦 Cards modernes pour organiser le contenu
+Encadre chaque section avec des cards stylées :
+
+css
+Copier
+Modifier
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+4. 🧭 Barre de navigation fixe et marron
+HTML :
+
+html
+Copier
+Modifier
+<nav class="navbar">
+  <h1>Nom de l’établissement</h1>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+CSS :
+
+css
+Copier
+Modifier
+.navbar {
+  background-color: #6B4226;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.navbar a {
+  color: white;
+  margin-left: 1.5rem;
+}
+5. 📱 Responsive design (mobile)
+css
+Copier
+Modifier
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .card {
+    padding: 1rem;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+✨ BONUS : Animation sur boutons
+css
+Copier
+Modifier
+.button {
+  background-color: #6B4226;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.button:hover {
+  background-color: #8B5E3C;
+  transform: scale(1.05);
+}

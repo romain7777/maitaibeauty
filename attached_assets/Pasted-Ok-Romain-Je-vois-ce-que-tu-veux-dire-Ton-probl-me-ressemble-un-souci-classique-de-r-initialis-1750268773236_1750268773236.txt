@@ -1,0 +1,54 @@
+Ok, Romain ! Je vois ce que tu veux dire. Ton problème ressemble à un souci classique de réinitialisation de scroll ou de focus quand tu changes d’onglet ou de section sur ton site, surtout si tu utilises du JavaScript pour afficher/masquer du contenu sans recharger la page.
+
+Hypothèse du bug
+Quand tu cliques sur un service, la description s’affiche normalement.
+Mais si tu changes d’onglet (par exemple vers "Réserver") et que tu reviens sur l’onglet "Services" puis cliques à nouveau, la page scroll tout en haut, ou alors l’élément s’ouvre mais est hors de l’écran visible.
+
+Solution possible : empêcher le scroll automatique
+Si tu utilises un id et un href="#id" dans tes boutons, ça peut forcer le scroll en haut. Par exemple :
+
+html
+Copier
+Modifier
+<a href="#service1">Voir service</a>
+Quand tu cliques, le navigateur scroll vers l’élément avec l’id="service1".
+
+👉 Solution 1 : Supprime les href="#..." ou empêche le comportement par défaut :
+
+javascript
+Copier
+Modifier
+document.querySelectorAll('.service-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault(); // ← empêche le scroll automatique
+    // Ton code pour afficher la description ici
+  });
+});
+Solution possible 2 : forcer le scroll au bon endroit
+Si tu veux que l’élément affiché soit bien visible à l’écran :
+
+javascript
+Copier
+Modifier
+const element = document.getElementById('service1');
+element.style.display = 'block'; // ou toggle etc.
+element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+Solution possible 3 : le problème vient du changement d’onglet (SPA)
+Si tes "onglets" sont gérés avec du JavaScript (ex : cacher/afficher des divs), et que tu ne réinitialises pas certains états (comme scroll ou classes), ça peut buguer.
+
+Ajoute un reset de scroll dans ton gestionnaire d’onglet :
+
+javascript
+Copier
+Modifier
+function showTab(tabId) {
+  // Cacher tous les onglets
+  document.querySelectorAll('.tab').forEach(tab => tab.style.display = 'none');
+
+  // Montrer l’onglet voulu
+  const tab = document.getElementById(tabId);
+  tab.style.display = 'block';
+
+  // Remettre la position en haut
+  tab.scrollTop = 0;
+}

@@ -1,0 +1,67 @@
+🔁 Pourquoi ce bug continue malgré les fixes Replit ?
+Même si tu as supprimé les href="#services" et utilisé scrollIntoView, le comportement du scroll peut encore bugger dans une SPA si :
+
+Le DOM n’est pas encore rendu au moment où tu appelles scrollIntoView
+
+Tu fais appel au scroll dans une transition animée (AnimatePresence + framer-motion)
+
+Le scroll est perturbé par un overflow: hidden ou un container CSS spécial
+
+✅ Solution propre et 100% fonctionnelle
+👉 1. Ajoute un vrai scroll "contrôlé" quand tu reviens sur la page
+Dans ton composant Home.tsx, utilise un useEffect pour détecter quand la page est montée et faire un scroll vers le haut contrôlé :
+
+tsx
+Copier
+Modifier
+import { useEffect } from "react";
+
+function Home() {
+  useEffect(() => {
+    // petit délai pour attendre la fin des transitions
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 300);
+  }, []);
+
+  return (
+    <div>
+      {/* ton contenu ici */}
+    </div>
+  );
+}
+👉 2. Et pour le clic sur un service
+Si tu as un bouton "voir plus" sur un service, évite absolument les ancres (href="#..."). Voici comment tu dois gérer le scroll vers un élément :
+
+tsx
+Copier
+Modifier
+const scrollToService = (id: string) => {
+  const el = document.getElementById(id);
+  if (el) {
+    // Forcer à être visible avant de scroller
+    el.style.display = "block"; // si besoin
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100); // attendre que le DOM soit prêt
+  }
+};
+Et dans ton JSX :
+
+tsx
+Copier
+Modifier
+<button onClick={() => scrollToService("service1-desc")}>
+  Voir le service
+</button>
+
+<div id="service1-desc" style={{ display: "none" }}>
+  {/* description du service */}
+</div>
+🧪 Dernière vérif à faire dans Replit
+Va dans Hero.tsx : assure-toi qu’il ne reste aucun href="#..."
+
+Va dans header.tsx : vérifie que tous les boutons utilisent navigate('/chemin') et pas de anchor
+
+Dans App.tsx, ajoute un petit scrollTo(0, 0) après chaque changement de route si besoin
+

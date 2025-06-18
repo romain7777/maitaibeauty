@@ -1,0 +1,76 @@
+ le problème principal est que le scroll du navigateur n’est pas remis à zéro quand tu reviens sur la page d’accueil, et que le composant modal (ou carte service) s’ouvre en haut de la page au lieu de rester ancré là où il devrait.
+
+Voici la vraie solution propre que Replit n’a pas réussi à stabiliser :
+
+✅ SOLUTION DÉFINITIVE (scroll + modals dans une SPA)
+Étape 1 — Forcer le scroll en haut à chaque changement de route
+Ajoute ce composant dans ton projet :
+src/components/utils/ScrollToTop.tsx
+
+tsx
+Copier
+Modifier
+import { useEffect } from "react";
+import { useLocation } from "wouter";
+
+export default function ScrollToTop() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location]);
+
+  return null;
+}
+Et dans App.tsx, ajoute-le juste avant le Router :
+
+tsx
+Copier
+Modifier
+<ScrollToTop />
+<Router />
+Étape 2 — Empêcher le scroll automatique provoqué par un élément focusé ou des ancres invisibles
+Dans tes boutons "voir plus" qui ouvrent la carte de service (modale ou section étendue), empêche toujours le comportement par défaut :
+
+tsx
+Copier
+Modifier
+<button
+  onClick={(e) => {
+    e.preventDefault(); // ← ESSENTIEL
+    openService("spa");
+  }}
+>
+  Voir plus
+</button>
+Étape 3 — S’assurer que les modales ne prennent pas le focus ou ne provoquent pas de scrollIntoView
+Si tu utilises un composant animé (Framer Motion, ou autre), ajoute ça au container de la modale :
+
+tsx
+Copier
+Modifier
+<motion.div
+  initial={{ opacity: 0, scale: 0.95 }}
+  animate={{ opacity: 1, scale: 1 }}
+  exit={{ opacity: 0, scale: 0.95 }}
+  transition={{ duration: 0.2 }}
+  style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} // ← bien centré
+>
+  {/* contenu de la carte */}
+</motion.div>
+Étape 4 — Vérifie qu’aucune ancre href="#..." ne reste
+Fais une recherche globale dans ton code avec :
+
+ini
+Copier
+Modifier
+href="# 
+Et supprime ou remplace tout ce qui ressemble à ça. Ces liens provoquent des comportements de scroll inattendus dans une SPA.
+
+Résultat attendu :
+Tu changes de page : le scroll est remis à 0.
+
+Tu reviens : tout est bien remis.
+
+Tu cliques sur une carte service : elle s’affiche à la bonne position, sans faire "remonter" la page.
+

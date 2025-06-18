@@ -1,0 +1,163 @@
+Tu peux remplacer ton index.html et style.css actuels par ce code modernisé :
+
+🔸 index.html
+html
+Copier
+Modifier
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maitai Beauty Tahiti</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <h1>Maitai Beauty</h1>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <h2>Bienvenue chez Maitai Beauty Tahiti</h2>
+    <p>Votre institut de beauté naturel et professionnel à Tahiti</p>
+  </header>
+
+  <section class="card" id="services">
+    <h3>Nos services</h3>
+    <ul>
+      <li>Soin du visage</li>
+      <li>Épilation</li>
+      <li>Massage bien-être</li>
+      <li>Beauté des mains & pieds</li>
+    </ul>
+  </section>
+
+  <section class="card" id="contact">
+    <h3>Contact</h3>
+    <p>Email : maitai@beauty.pf</p>
+    <p>Téléphone : 87 00 00 00</p>
+    <p>Adresse : Papeete, Tahiti</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Maitai Beauty Tahiti — Tous droits réservés</p>
+  </footer>
+
+</body>
+</html>
+🔸 style.css
+css
+Copier
+Modifier
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
+  color: #3a2b20;
+  line-height: 1.6;
+}
+
+.navbar {
+  background-color: #6B4226;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar h1 {
+  margin: 0;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.hero {
+  background-color: #f9f6f3;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero h2 {
+  color: #6B4226;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.card h3 {
+  color: #6B4226;
+  margin-top: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #f5f5f5;
+  color: #6B4226;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+}
+✅ Résultat
+✅ Police moderne (Poppins)
+
+✅ Palette marron-blanc élégante
+
+✅ Navigation sticky propre
+
+✅ Sections en cards
+
+✅ Responsive mobile intégré
